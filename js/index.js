@@ -1,6 +1,8 @@
 var fields = document.querySelectorAll("#form-user-create [name]")
-var user = {}
+var userData = {}
 function addLine(dataUser){
+
+    console.log(dataUser)
    
     document.getElementById(`table-users`).innerHTML = ` <tr>
                     <td><img src="dist/img/user1-128x128.jpg" alt="User Image" class="img-circle img-sm"></td>
@@ -24,14 +26,22 @@ document.getElementById("form-user-create").addEventListener("submit", function(
    fields.forEach(function(field, index){
 
     if (field.name == "gender") {
-        user.gender
+        userData.gender
 
     } else {
-        user[field.name] = field.value
+        userData [field.name] = field.value
     }
 
 });
 
-console.log(user)
-addLine(user)
+var objectUser = new user(user.name, 
+    user.gender, 
+    user.birth, 
+    user.coutry, 
+    user.email, 
+    user.password, 
+    user.photo, 
+    user.admin) 
+
+addLine(objectUser)
 })
