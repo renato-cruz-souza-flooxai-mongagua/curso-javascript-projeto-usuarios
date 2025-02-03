@@ -1,26 +1,15 @@
-var valor = document.querySelector("#exampleInputName")
-
-valor.value = "Joanete"
-valor.style.color = "purple"
-
-
-var gender = document.querySelectorAll("#form-user-create [name=gender]:checked");
-var birth = document.querySelector("#exampleInputBirth")
-var country = document.querySelector("#exampleInputCountry")
-var email = document.querySelector("#exampleInputEmail1")
-var password = document.querySelector("#exampleInputPassword1")
-var photo = document.querySelector("#exampleInputFile")
-var admin = document.querySelector("#exampleInputAdmin")
-
-
 var fields = document.querySelectorAll("#form-user-create [name]")
+var user = {}
 
 fields.forEach(function(field, index){
 
     if (field.name == "gender") {
-        if(field.checked === true) console.log("SIM", field)
+        user.gender
+
     } else {
-        console.log("NAO!")
+        user[field.name] = field.value
     }
 
 });
+
+console.log(user)
