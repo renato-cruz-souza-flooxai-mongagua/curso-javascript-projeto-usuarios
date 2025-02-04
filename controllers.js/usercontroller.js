@@ -9,12 +9,38 @@ class userController {
     onSubmit() {
         this.formEl.addEventListener("submit", (event) => {
             event.preventDefault();
-            let userData = this.getValues();
+            let values = this.getValues();
 
-            if (userData) {
-                this.addLine(userData);
-            }
+            this.getPhoto((content)=>{
+
+                values.photo = content;
+                this.addLine(values)
+
+            })
+            
         });
+    }
+
+    getPhoto(callback) {
+
+        let fileReader = new FileReader(); 
+
+        let elements = [...this.formEl.elements].filter(item => item.name === "photo");
+
+        console.log(elements);
+
+        if (elements.length > 0 && elements[0].files.length > 0) { 
+            let file = elements[0].files[0]; 
+
+            fileReader.onload = () => {
+                console.log(fileReader.result);
+                callback(fileReader.result)
+            };
+
+            fileReader.readAsDataURL(file); 
+        } //else {
+            //console.warn("Nenhum arquivo foi selecionado para upload.");
+        //}
     }
 
     getValues() {
@@ -37,7 +63,7 @@ class userController {
         let tr = document.createElement("tr");
 
         tr.innerHTML = `
-            <td><img src="dist/img/user1-128x128.jpg" alt="User Image" class="img-circle img-sm"></td>
+            <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
             <td>${dataUser.name}</td>
             <td>${dataUser.email}</td>
             <td>${dataUser.admin ? "Sim" : "Não"}</td>
@@ -49,5 +75,5 @@ class userController {
         `;
 
         this.tableEl.appendChild(tr); 
-    }
+    } 
 }
