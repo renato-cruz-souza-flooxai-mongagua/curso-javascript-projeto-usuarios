@@ -21,7 +21,35 @@ class userController {
         });
     }
 
-    getPhoto(callback) {
+    getPhoto() {
+
+        return Promise(function(resolve, reject){
+
+            let fileReader = new FileReader(); 
+
+            let elements = [...this.formEl.elements].filter(item => item.name === "photo");
+    
+            console.log(elements);
+    
+            if (elements.length > 0 && elements[0].files.length > 0) { 
+                let file = elements[0].files[0]; 
+    
+                fileReader.onload = () => {
+                    console.log(fileReader.result);
+
+                    resolve(fileReader.result)
+                };
+
+                fileReader.onerror = (e) =>{
+
+                    reject(e);
+
+                }
+    
+                fileReader.readAsDataURL(file); 
+            } 
+
+        })
 
         let fileReader = new FileReader(); 
 
