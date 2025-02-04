@@ -11,19 +11,24 @@ class userController {
             event.preventDefault();
             let values = this.getValues();
 
-            this.getPhoto((content)=>{
+            this.getPhoto().then((content)=>{
 
                 values.photo = content;
                 this.addLine(values)
 
+
+            }, (e)=>{
+                console.error(e)
             })
+
+
             
         });
     }
 
     getPhoto() {
 
-        return Promise(function(resolve, reject){
+        return new Promise ((resolve, reject)=>{
 
             let fileReader = new FileReader(); 
 
