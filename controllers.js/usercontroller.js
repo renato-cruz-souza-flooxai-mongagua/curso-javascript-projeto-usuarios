@@ -50,46 +50,38 @@ class userController {
                     reject(e);
 
                 }
-    
+             if (file) {
+
                 fileReader.readAsDataURL(file); 
+
+             } else {
+                resolve
+             }
+      
             } 
 
         })
 
-        let fileReader = new FileReader(); 
-
-        let elements = [...this.formEl.elements].filter(item => item.name === "photo");
-
-        console.log(elements);
-
-        if (elements.length > 0 && elements[0].files.length > 0) { 
-            let file = elements[0].files[0]; 
-
-            fileReader.onload = () => {
-                console.log(fileReader.result);
-                callback(fileReader.result)
-            };
-
-            fileReader.readAsDataURL(file); 
-        } //else {
-            //console.warn("Nenhum arquivo foi selecionado para upload.");
-        //}
     }
 
     getValues() {
         let user = {};
-
+    
         [...this.formEl.elements].forEach((field) => {
             if (field.name) {
-                if (field.name === "gender" && field.checked) {
-                    user.gender = field.value; 
-                } else if (field.type !== "radio") {
+                if (field.type === "radio") {
+                    if (field.checked) {
+                        user[field.name] = field.value;
+                    }
+                } else if (field.type === "checkbox") {
+                    user[field.name] = field.checked; 
+                } else {
                     user[field.name] = field.value;
                 }
             }
         });
-
-        return user; 
+    
+        return user;
     }
 
     addLine(dataUser) {
